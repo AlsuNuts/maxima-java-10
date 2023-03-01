@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Мурзик",
+        "weight": 10,
+        "isAngry": true
+        "character": {
+            "type": "nordic"
+        }
+    },
+    {
+        "name": "Черныш",
+        "weight": 7,
+        "isAngry": false
+    },
+    {
+        "name": "Куся",
+        "weight": 5,
+        "isAngry": true
+    },
+]

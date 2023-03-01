@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/mywebapp'
+components:
+  schemas:
+    CatObjects:
+      type: array
+      properties:
+        name:
+          type: string
+        weight:
+          type: integer
+        isAngry:
+          type: boolean
+paths:
+  /cats:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CatObjects"
+  /cat/{id}:
+    patch:
+      description: Update Cat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: cat
+          in: query
+          schema:
+            $ref: "#/components/schemas/CatObjects"
+      responses:
+        '200':
+          description: Cat updated
+  /students/delete/{id}:
+    delete:
+      responses:
+        '200':
+          description: Cat deleted
+        '404':
+          description: Not found
+        '301':
+          description: Redirect to URL http:://localhost:8080/cats
+# или http:://localhost:8080/mywebapp/cats
+
