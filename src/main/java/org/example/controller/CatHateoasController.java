@@ -4,12 +4,12 @@ import org.example.model.Cat;
 import org.example.service.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.PublicKey;
 import java.util.List;
 
 @RestController
@@ -21,12 +21,26 @@ public class CatHateoasController {
     @Autowired private CatModelAssembler assembler;
     @GetMapping("/cats")
     public List<Cat> getAll(){
-        return catService.qetCats();
+        return catService.getCats();
     }
 
     @GetMapping("/cat/{id}")
     public EntityModel<Cat> getOne(@PathVariable Long id){
         return assembler.toModel(catService.readCat(id));
     }
+    @PostMapping("/cat")
+    public HttpEntity<Cat> addCat(@RequestBody Cat cat) {
+        return assembler.toModel(catService.saveCat(cat));
+    }
+    @GetMapping("/cat/{id}")
+    public EntityModel<Cat> updateCat(@RequestBody Cat cat,@PathVariable Long id){
+        return assembler.toModel(catService.updateCat(id, cat));
+    }
+    @GetMapping("/cat/{id}")
+    public void deleteCat(@PathVariable Long id){
+        catService.deleteCat(id);
+    }
+
+
 
 }
